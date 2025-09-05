@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TemplateCraft - Premium HTML Template Business Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --success: #4cc9f0;
+            --info: #7209b7;
+            --warning: #f72585;
+            --light: #f8f9fa;
+            --dark: #1e1e2c;
+            --background: #f5f7fb;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+            z-index: 100;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-header h2 {
+            font-weight: 700;
+            font-size: 24px;
+            margin: 0;
+            background: linear-gradient(45deg, #fff, #d1d1d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-item {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+        }
+        
+        .menu-item:hover, .menu-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--success);
+        }
+        
+        .menu-item i {
+            margin-right: 12px;
+            font-size: 18px;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .page-title h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        .page-title p {
+            color: #888;
+            margin: 5px 0 0;
+            font-size: 14px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 15px;
+            border: 3px solid var(--success);
+        }
+        
+        /* Dashboard Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .card-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .card-title {
+            color: #888;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        /* Charts Section */
+        .charts-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .chart-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        /* Business Plan Section */
+        .business-plan {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .plan-card {
+            background: linear-gradient(135deg, #f5f7ff, #fff);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .plan-card h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .plan-card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .plan-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .plan-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .plan-card li i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        /* ThemeForest Guidelines */
+        .guidelines {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .guide-item {
+            padding: 15px;
+            background: #f9f9ff;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--info);
+        }
+        
+        .guide-item h4 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .guide-item i {
+            margin-right: 10px;
+            color: var(--info);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #888;
+            font-size: 14px;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                width: 70px;
+            }
+            
+            .sidebar .menu-text, .sidebar-header h2 {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .plan-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .user-info {
+                margin-top: 15px;
+            }
+        }
+        
+        /* Color Utilities */
+        .bg-primary { background: linear-gradient(135deg, var(--primary), #5a72e0) !important; color: white; }
+        .bg-success { background: linear-gradient(135deg, var(--success), #5bc8e0) !important; color: white; }
+        .bg-info { background: linear-gradient(135deg, var(--info), #8d46c6) !important; color: white; }
+        .bg-warning { background: linear-gradient(135deg, var(--warning), #ff4d94) !important; color: white; }
+        
+        .text-primary { color: var(--primary) !important; }
+        .text-success { color: var(--success) !important; }
+        .text-info { color: var(--info) !important; }
+        .text-warning { color: var(--warning) !important; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>TemplateCraft</h2>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item active">
+                    <i class="fas fa-home"></i>
+                    <span class="menu-text">Dashboard</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="menu-text">Analytics</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="menu-text">Sales</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-palette"></i>
+                    <span class="menu-text">Templates</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span class="menu-text">Customers</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-text">Settings</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="menu-text">Support</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="page-title">
+                    <h1>TemplateCraft Business Dashboard</h1>
+                    <p>Premium HTML Template Business Plan & Analytics</p>
+                </div>
+                <div class="user-info">
+                    <div class="user-details">
+                        <h4>John Doe</h4>
+                        <p>Admin</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" alt="User">
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Total Revenue</h3>
+                        <div class="card-icon bg-primary">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">$42,890</div>
+                    <div class="card-progress">
+                        <small class="text-success"><i class="fas fa-arrow-up"></i> 12.5% from last month</small>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Templates Sold</h3>
+                        <div class="card-icon bg-success">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">1,258</div>
+                    <div class="card-progress">
+                        <small class="text-success"><i class="fas fa-arrow-up"></i> 8.3% from last month</small>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Active Users</h3>
+                        <div class="card-icon bg-info">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">12,845</div>
+                    <div class="card-progress">
+                        <small class="text-success"><i class="fas fa-arrow-up"></i> 5.7% from last month</small>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3 class="card-title">Conversion Rate</h3>
+                        <div class="card-icon bg-warning">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">24.8%</div>
+                    <div class="card-progress">
+                        <small class="text-warning"><i class="fas fa-arrow-down"></i> 1.2% from last month</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Revenue Analytics</h3>
+                        <select class="form-select">
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                            <option>Last 90 Days</option>
+                        </select>
+                    </div>
+                    <canvas id="revenueChart" height="300"></canvas>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Sales Distribution</h3>
+                        <select class="form-select">
+                            <option>This Month</option>
+                            <option>Last Month</option>
+                        </select>
+                    </div>
+                    <canvas id="salesChart" height="300"></canvas>
+                </div>
+            </div>
+
+            <!-- Business Plan Section -->
+            <div class="business-plan">
+                <h2 class="section-title">TemplateCraft Business Plan</h2>
+                
+                <div class="plan-grid">
+                    <div class="plan-card">
+                        <h4>Market Analysis</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Target: Web Developers & Agencies</li>
+                            <li><i class="fas fa-check-circle"></i> Niche: Admin Dashboards & SaaS Templates</li>
+                            <li><i class="fas fa-check-circle"></i> Competitive pricing: $20-$40 per license</li>
+                            <li><i class="fas fa-check-circle"></i> Differentiate with premium design & code quality</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <h4>Financial Projections</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Year 1 Goal: $25,000 revenue</li>
+                            <li><i class="fas fa-check-circle"></i> ThemeForest commission: 50-70%</li>
+                            <li><i class="fas fa-check-circle"></i> Initial investment: $500 (hosting, assets)</li>
+                            <li><i class="fas fa-check-circle"></i> Break-even: 3rd month</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <h4>Marketing Strategy</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> SEO-optimized ThemeForest listings</li>
+                            <li><i class="fas fa-check-circle"></i> Social media promotion (Twitter, LinkedIn)</li>
+                            <li><i class="fas fa-check-circle"></i> Free template giveaways to build audience</li>
+                            <li><i class="fas fa-check-circle"></i> Responsive, interactive demos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ThemeForest Guidelines -->
+            <div class="guidelines">
+                <h2 class="section-title">ThemeForest Submission Guidelines</h2>
+                
+                <div class="guide-item">
+                    <h4><i class="fas fa-paint-brush"></i> Quality Standards</h4>
+                    <p>Professional design, responsive layout, modern UI/UX, cross-browser compatibility, and valid HTML/CSS/JS code.</p>
+                </div>
+                
+                <div class="guide-item">
+                    <h4><i class="fas fa-file-alt"></i> Documentation</h4>
+                    <p>Comprehensive documentation including installation guide, customization options, and code structure.</p>
+                </div>
+                
+                <div class="guide-item">
+                    <h4><i class="fas fa-laptop"></i> Live Preview</h4>
+                    <p>Fully functional demo hosted on reliable server with multiple layout examples.</p>
+                </div>
+                
+                <div class="guide-item">
+                    <h4><i class="fas fa-code"></i> Technical Requirements</h4>
+                    <p>Clean, well-commented code, no external dependencies, and proper licensing for all assets.</p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>© 2023 TemplateCraft - Premium HTML Template Business. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Revenue in $',
+                    data: [12000, 19000, 15000, 25000, 22000, 30000, 28000, 35000, 40000, 38000, 42000, 48000],
+                    backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                    borderColor: 'rgba(67, 97, 238, 1)',
+                    borderWidth: 3,
+                    tension: 0.2,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Sales Distribution Chart
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Admin Dashboards', 'Landing Pages', 'E-commerce', 'Portfolio'],
+                datasets: [{
+                    data: [45, 25, 20, 10],
+                    backgroundColor: [
+                        'rgba(67, 97, 238, 0.8)',
+                        'rgba(76, 201, 240, 0.8)',
+                        'rgba(114, 9, 183, 0.8)',
+                        'rgba(247, 37, 133, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(67, 97, 238, 1)',
+                        'rgba(76, 201, 240, 1)',
+                        'rgba(114, 9, 183, 1)',
+                        'rgba(247, 37, 133, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
